@@ -37,7 +37,7 @@ public class FirstTestMap3x3 extends Map {
 
         setStartPosition(map.get(0).get(0).getID());
         try{
-            setNPC(2,2, new NPC("Dummy"));
+            setNPC(2,2, new NPC("Bob", "Hello stranger."));
             setItem(2,1,new HealthPotion());
             setItem(0,2,new Key());
         }

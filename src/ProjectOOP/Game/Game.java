@@ -40,6 +40,7 @@ public class Game {
                 catch (Exception e){
                     throw new Error(e.getCause());
                 }
+                ShowMainView();
             }
             playerPositionOld = itsPlayer.getPlayerPosition();
         }

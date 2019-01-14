@@ -4,11 +4,12 @@ import ProjectOOP.Game.Item.Item;
 import ProjectOOP.Game.Item.Stackable;
 import ProjectOOP.Game.NPC;
 import ProjectOOP.Game.Player;
+import ProjectOOP.Input.Input;
 
 public class NormalField extends Field {
 
-    NPC itsNpc;
-    Item itsItem;
+    private NPC itsNpc;
+    private Item itsItem;
 
     public NormalField() {
         super();
@@ -35,10 +36,7 @@ public class NormalField extends Field {
     }
 
     public boolean hasNPC() {
-        if (getNpc() != null) {
-            return true;
-        }
-        return false;
+        return getNpc() != null;
     }
 
     public Item getItem() {
@@ -50,27 +48,30 @@ public class NormalField extends Field {
     }
 
     public boolean hasItem(){
-        if(getItem() != null){
-            return true;
-        }
-        return false;
+        return getItem() != null;
     }
 
     public void OnEnter(Player player) {
 
         if(this.hasItem()){
+
             player.getInventory().addItem(this.getItem());
             System.out.print("You found an item: " + this.getItem().getItemName());
+
             if (this.getItem() instanceof Stackable){
                 System.out.print(" amount: " + ((Stackable) this.getItem()).getStackSize());
             }
+
             System.out.println(".");
             this.removeItem();
+
+            System.out.println("Press enter to continue...");
+            Input.getNextInput();
+
         }
 
         if (this.hasNPC()) {
-            System.out.println("You encountered an NPC. He talks to you: ");
-            this.getNpc().dummySay();
+            this.getNpc().onEncounter();
         }
     }
 
