@@ -9,7 +9,6 @@ import ProjectOOP.Game.Item.Item;
 import ProjectOOP.Game.Item.Useable.Key;
 import ProjectOOP.Game.NPC;
 import ProjectOOP.Game.Player;
-import ProjectOOP.Input.Input;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -81,7 +80,7 @@ public abstract class Map {
 
     private Field getFieldDown(int referenceFieldID) throws Exception {
 
-        List<Field> nextLine = null;
+        List<Field> nextLine;
         Field requestedField;
 
         for (List<Field>Line:map
@@ -190,7 +189,7 @@ public abstract class Map {
 
         Field requestedField;
 
-        direction.toLowerCase();
+        direction = direction.toLowerCase();
 
         try {
             switch (direction) {
