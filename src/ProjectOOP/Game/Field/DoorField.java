@@ -8,8 +8,10 @@ public class DoorField extends PassableField {
     private boolean locked;
 
     public DoorField(){
+
         super();
         this.locked = true;
+
     }
 
     public boolean isLocked(){
@@ -27,7 +29,9 @@ public class DoorField extends PassableField {
     }
 
     public void unlock(Key key){
+
         key.use();
         this.locked = false;
+
     }
 }

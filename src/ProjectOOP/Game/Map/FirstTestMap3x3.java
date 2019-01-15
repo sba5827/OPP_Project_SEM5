@@ -43,7 +43,7 @@ public class FirstTestMap3x3 extends Map {
 
         try{
             setNPC(2,1, Bob);
-            setItem(2,1,new HealthPotion());
+            setItem(2,1,new HealthPotion(3));
             setItem(0,2,new Key());
         }
         catch (Exception e){

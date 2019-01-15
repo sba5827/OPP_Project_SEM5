@@ -3,43 +3,52 @@ package ProjectOOP.DisplayControl;
 public class Display {
 
     static public void printBlackBox(){
+
         System.out.print(" ");
         DisplayStyle.BackgroundColor.Black();
         System.out.print("   ");
         DisplayStyle.resetAttributes();
         System.out.print(" ");
+
     }
     static public void printGreenBox(boolean hasPlayer){
+
         System.out.print(" ");
         DisplayStyle.BackgroundColor.Green();
         if(hasPlayer) System.out.print(" P ");
         else System.out.print("   ");
         DisplayStyle.resetAttributes();
         System.out.print(" ");
+
     }
     static public void newLine(){
         System.out.println();
     }
 
     static public void printGreyBox(boolean hasPlayer){
+
         System.out.print(" ");
         DisplayStyle.BackgroundColor.Grey();
         if(hasPlayer) System.out.print(" P ");
         else System.out.print("   ");
         DisplayStyle.resetAttributes();
         System.out.print(" ");
+
     }
 
     static public void printWhiteBox(boolean hasPlayer){
+
         System.out.print(" ");
         DisplayStyle.resetAttributes();
         if(hasPlayer) System.out.print(" P ");
         else System.out.print("   ");
         DisplayStyle.resetAttributes();
         System.out.print(" ");
+
     }
 
     static public void printLegend(){
+
         System.out.println("Legend:");
         printWhiteBox(true);
         System.out.print("= Player Location ");
@@ -50,6 +59,7 @@ public class Display {
         printGreenBox(false);
         System.out.print("= Passable    ");
         newLine();
+
     }
 
     static public void printPlayerStatus(int Health, int MaxHealth){
@@ -63,12 +73,14 @@ public class Display {
     }
 
     static public void printHelp(){
+
         System.out.println("Movement: \"w\" = move upwards, \"a\" = move left, \"s\" = move downwards, \"d\" = move right");
         System.out.println("Enter \"q\" to quit game.");
         System.out.println("Enter \"i\" to open Inventory.");
         System.out.println("Use the buttons described above, then press return.");
         System.out.println("On entering multiple buttons the first input will be chosen.");
         Display.printLegend();
+
     }
 
     static public void printHelpInfo(){

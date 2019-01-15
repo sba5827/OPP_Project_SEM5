@@ -3,7 +3,7 @@ package ProjectOOP.Game;
 import ProjectOOP.DisplayControl.Display;
 import ProjectOOP.Game.Item.Equip.EquipableItem;
 import ProjectOOP.Game.Item.Item;
-import ProjectOOP.Game.Item.Stackable;
+import ProjectOOP.Game.Item.StackableItem;
 import ProjectOOP.Game.Item.Useable.Key;
 import ProjectOOP.Game.Item.Useable.UseableItem;
 import ProjectOOP.Input.Input;
@@ -39,15 +39,11 @@ public class Inventory{
         int Index = InventoryHasInstanceOf(item);
 
         if(Index != -1){
-            if(item instanceof Stackable){
-                ((Stackable)inventory.get(Index)).add(((Stackable) item).getStackSize());
+            if(item instanceof StackableItem){
+                ((StackableItem)inventory.get(Index)).add(((StackableItem) item).getStackSize());
             }
             else{
-                inventory.add(item);
-                if(item instanceof UseableItem){
-                    ((UseableItem)item).addListener(owner);
-                }
-                else if( item instanceof EquipableItem){
+                if( item instanceof EquipableItem){
                     ((EquipableItem)item).addListener(owner);
                 }
             }
@@ -69,7 +65,7 @@ public class Inventory{
 
             int Index = inventory.indexOf(item);
 
-            if(item instanceof Stackable){
+            if(item instanceof StackableItem){
                 ((UseableItem)item).removeListener(owner);
             }
             else if(item instanceof EquipableItem){
@@ -98,8 +94,8 @@ public class Inventory{
             count++;
             System.out.print(count+":\t");
             System.out.print(item.getItemName()+"\t");
-            if(item instanceof Stackable){
-                System.out.print("x" + ((Stackable)item).getStackSize());
+            if(item instanceof StackableItem){
+                System.out.print("x" + ((StackableItem)item).getStackSize());
             }
             Display.newLine();
         }

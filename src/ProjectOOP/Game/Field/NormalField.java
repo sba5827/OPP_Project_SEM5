@@ -1,7 +1,7 @@
 package ProjectOOP.Game.Field;
 
 import ProjectOOP.Game.Item.Item;
-import ProjectOOP.Game.Item.Stackable;
+import ProjectOOP.Game.Item.StackableItem;
 import ProjectOOP.Game.NPC.NPC;
 import ProjectOOP.Game.Player;
 import ProjectOOP.Input.Input;
@@ -16,6 +16,13 @@ public class NormalField extends PassableField {
         setNpc(null);
     }
 
+    public NormalField(NPC npc) {
+
+        super();
+        setNpc(npc);
+
+    }
+
     public NPC getNpc() {
         return itsNpc;
     }
@@ -25,9 +32,11 @@ public class NormalField extends PassableField {
     }
 
     public NPC removeNPC() {
+
         NPC buffer = getNpc();
         setNpc(null);
         return buffer;
+
     }
 
     public boolean hasNPC() {
@@ -53,8 +62,8 @@ public class NormalField extends PassableField {
             player.getInventory().addItem(this.getItem());
             System.out.print("You found an item: " + this.getItem().getItemName());
 
-            if (this.getItem() instanceof Stackable){
-                System.out.print(" amount: " + ((Stackable) this.getItem()).getStackSize());
+            if (this.getItem() instanceof StackableItem){
+                System.out.print(" amount: " + ((StackableItem) this.getItem()).getStackSize());
             }
 
             System.out.println(".");
@@ -68,6 +77,7 @@ public class NormalField extends PassableField {
         if (this.hasNPC()) {
             this.getNpc().onEncounter(player);
         }
+
     }
 
     private void removeItem() {

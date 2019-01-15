@@ -3,7 +3,6 @@ package ProjectOOP.Game;
 import ProjectOOP.Game.Item.Equip.Armor;
 import ProjectOOP.Game.Item.Equip.Weapon;
 import ProjectOOP.Game.Item.Item;
-import ProjectOOP.Game.Item.Stackable;
 import ProjectOOP.Game.Item.Useable.HealthPotion;
 import ProjectOOP.Game.Item.Useable.Key;
 import ProjectOOP.Game.Item.Useable.UseableItem;
@@ -131,7 +130,7 @@ public class Player extends InventoryOwner{
             Input.getNextInput();
         }
 
-        if(((Stackable)item).getStackSize() < 2) {
+        if((item).getStackSize() < 2) {
 
             try {
                 getInventory().removeItem(item);
@@ -140,7 +139,7 @@ public class Player extends InventoryOwner{
             }
         }
         else{
-            ((Stackable)item).remove(1);
+            (item).remove(1);
         }
 
     }
