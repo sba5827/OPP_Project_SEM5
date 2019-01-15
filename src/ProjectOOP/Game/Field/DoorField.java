@@ -1,6 +1,7 @@
 package ProjectOOP.Game.Field;
 
 import ProjectOOP.Game.Item.Useable.Key;
+import ProjectOOP.Game.Player;
 
 public class DoorField extends PassableField {
 
@@ -18,6 +19,11 @@ public class DoorField extends PassableField {
     @Override
     public boolean isPassable(){
         return !isLocked();
+    }
+
+    @Override
+    public void OnEnter(Player player) {
+
     }
 
     public void unlock(Key key){

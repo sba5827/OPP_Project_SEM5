@@ -1,21 +1,20 @@
 package ProjectOOP.Game.Map;
 
-import ProjectOOP.Game.Field.DoorField;
-import ProjectOOP.Game.Field.Field;
-import ProjectOOP.Game.Field.ImpassableField;
-import ProjectOOP.Game.Field.NormalField;
+import ProjectOOP.Game.Field.*;
 import ProjectOOP.Game.Item.Equip.Weapon;
 import ProjectOOP.Game.Item.Useable.HealthPotion;
 import ProjectOOP.Game.Item.Useable.Key;
 import ProjectOOP.Game.NPC.NPC;
 import ProjectOOP.Game.NPC.NPC_Gift;
+import ProjectOOP.Game.WinningConditionListener;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class FirstTestMap3x3 extends Map {
-    public FirstTestMap3x3(){
-        super();
+
+    public FirstTestMap3x3(WinningConditionListener wcListener){
+        super(wcListener);
 
         List<Field> Line1 = new LinkedList<>();
         List<Field> Line2 = new LinkedList<>();
@@ -31,7 +30,7 @@ public class FirstTestMap3x3 extends Map {
 
         Line3.add(new NormalField());
         Line3.add(new ImpassableField());
-        Line3.add(new NormalField());
+        Line3.add(new WinningField(wcListener));
 
         map.add(Line1);
         map.add(Line2);
@@ -43,7 +42,7 @@ public class FirstTestMap3x3 extends Map {
         Bob.addSentence("Take this, you'll need it");
 
         try{
-            setNPC(2,2, Bob);
+            setNPC(2,1, Bob);
             setItem(2,1,new HealthPotion());
             setItem(0,2,new Key());
         }

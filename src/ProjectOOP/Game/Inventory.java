@@ -169,24 +169,24 @@ public class Inventory{
         Item SelectedItem;
 
         while(!close){
+
             Display.clear();
             show();
             System.out.println("Select Item by entering its number. Enter \"I\" to close Inventory");
             String input = Input.getNextInput();
 
-            if(input.charAt(0) == 'i'||input.charAt(0) == 'I'){
-                close = true;
-            }else{
-                try{
-                    SelectedItem = getItem(Input.toPositiveNumber(input)-1);
-                    openOptionDialog(SelectedItem);
+            try {
+                if (input.charAt(0) == 'i' || input.charAt(0) == 'I') {
+                    close = true;
                 }
-                catch (Exception e){
-                    System.out.println("Input is not valid");
+                else {
+                        SelectedItem = getItem(Input.toPositiveNumber(input) - 1);
+                        openOptionDialog(SelectedItem);
                 }
             }
-
-
+            catch (Exception e) {
+                System.out.println("Input is not valid");
+            }
         }
 
     }

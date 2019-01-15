@@ -2,13 +2,12 @@ package ProjectOOP.Game.Map;
 
 
 import ProjectOOP.DisplayControl.Display;
-import ProjectOOP.Game.Field.DoorField;
-import ProjectOOP.Game.Field.Field;
-import ProjectOOP.Game.Field.NormalField;
+import ProjectOOP.Game.Field.*;
 import ProjectOOP.Game.Item.Item;
 import ProjectOOP.Game.Item.Useable.Key;
 import ProjectOOP.Game.NPC.NPC;
 import ProjectOOP.Game.Player;
+import ProjectOOP.Game.WinningConditionListener;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -17,9 +16,17 @@ public abstract class Map {
 
     protected List<List<Field>> map;
     private int startPosition;
+    private final WinningConditionListener itsWCListener;
 
-    public Map(){
+    public Map(WinningConditionListener wcListener){
+
         map = new LinkedList<>();
+        itsWCListener = wcListener;
+
+    }
+
+    protected WinningConditionListener getWinningConditionListener() {
+        return itsWCListener;
     }
 
     protected void setStartPosition(int FieldID_StartPosition){
@@ -34,7 +41,7 @@ public abstract class Map {
 
                 boolean isPlayerLocation = (field.getID() == FieldID_PlayerLocation);
 
-                if(field instanceof NormalField){
+                if(field instanceof NormalField || field instanceof WinningField){
                     Display.printGreenBox(isPlayerLocation);
                 }
                 else if(field instanceof DoorField){
@@ -240,7 +247,7 @@ public abstract class Map {
         }
     }
 
-    public void setNPC(int x, int y, NPC npc) throws Exception {
+    protected void setNPC(int x, int y, NPC npc) throws Exception {
 
         if(map.get(y).get(x) instanceof NormalField){
             ((NormalField)map.get(y).get(x)).setNpc(npc);
@@ -251,7 +258,7 @@ public abstract class Map {
 
     }
 
-    public void setItem(int x, int y, Item item) throws Exception {
+    protected void setItem(int x, int y, Item item) throws Exception {
 
         if(map.get(y).get(x) instanceof NormalField){
             ((NormalField)map.get(y).get(x)).setItem(item);
@@ -266,8 +273,8 @@ public abstract class Map {
 
         Field field = getField(player.getPlayerPosition());
 
-        if(field instanceof NormalField){
-            ((NormalField) field).OnEnter(player);
+        if(field instanceof PassableField){
+            ((PassableField) field).OnEnter(player);
         }
     }
 }

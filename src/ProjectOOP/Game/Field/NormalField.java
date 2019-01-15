@@ -6,7 +6,7 @@ import ProjectOOP.Game.NPC.NPC;
 import ProjectOOP.Game.Player;
 import ProjectOOP.Input.Input;
 
-public class NormalField extends Field {
+public class NormalField extends PassableField {
 
     private NPC itsNpc;
     private Item itsItem;
@@ -14,11 +14,6 @@ public class NormalField extends Field {
     public NormalField() {
         super();
         setNpc(null);
-    }
-
-    @Override
-    public boolean isPassable() {
-        return true;
     }
 
     public NPC getNpc() {
