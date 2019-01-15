@@ -63,6 +63,7 @@ public class Inventory{
                 ((EquipableItem)item).addListener((EquipableItemListener) owner);
             }
         }
+
     }
     public void removeItem(Item item) throws Exception {
 

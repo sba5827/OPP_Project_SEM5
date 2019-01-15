@@ -7,7 +7,7 @@ import ProjectOOP.Game.Field.Field;
 import ProjectOOP.Game.Field.NormalField;
 import ProjectOOP.Game.Item.Item;
 import ProjectOOP.Game.Item.Useable.Key;
-import ProjectOOP.Game.NPC;
+import ProjectOOP.Game.NPC.NPC;
 import ProjectOOP.Game.Player;
 
 import java.util.LinkedList;
