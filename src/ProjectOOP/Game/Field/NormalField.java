@@ -75,9 +75,7 @@ public class NormalField extends Field {
         }
     }
 
-    private Item removeItem() {
-        Item buffer = getItem();
+    private void removeItem() {
         setItem(null);
-        return buffer;
     }
 }

@@ -2,10 +2,10 @@ package ProjectOOP.Game;
 
 import ProjectOOP.Game.Item.Equip.Armor;
 import ProjectOOP.Game.Item.Equip.Weapon;
-import ProjectOOP.Game.Item.Useable.Key;
-import ProjectOOP.Game.Item.Useable.HealthPotion;
 import ProjectOOP.Game.Item.Item;
 import ProjectOOP.Game.Item.Stackable;
+import ProjectOOP.Game.Item.Useable.HealthPotion;
+import ProjectOOP.Game.Item.Useable.Key;
 import ProjectOOP.Game.Item.Useable.UseableItem;
 import ProjectOOP.Game.Map.Map;
 import ProjectOOP.Input.Input;
@@ -134,7 +134,7 @@ public class Player extends InventoryOwner{
         if(((Stackable)item).getStackSize() < 2) {
 
             try {
-                getInventory().removeItem((Item) item);
+                getInventory().removeItem(item);
             } catch (Exception e) {
                 e.printStackTrace();
             }

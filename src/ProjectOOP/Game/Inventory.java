@@ -2,12 +2,10 @@ package ProjectOOP.Game;
 
 import ProjectOOP.DisplayControl.Display;
 import ProjectOOP.Game.Item.Equip.EquipableItem;
-import ProjectOOP.Game.Item.Equip.EquipableItemListener;
 import ProjectOOP.Game.Item.Item;
 import ProjectOOP.Game.Item.Stackable;
 import ProjectOOP.Game.Item.Useable.Key;
 import ProjectOOP.Game.Item.Useable.UseableItem;
-import ProjectOOP.Game.Item.Useable.UseableItemListener;
 import ProjectOOP.Input.Input;
 
 import java.util.LinkedList;
@@ -19,7 +17,7 @@ public class Inventory{
     private InventoryOwner owner;
 
     Inventory(InventoryOwner owner) throws NullPointerException {
-        inventory = new LinkedList<Item>();
+        inventory = new LinkedList<>();
         if(owner != null) {
             this.owner = owner;
         }
@@ -47,20 +45,20 @@ public class Inventory{
             else{
                 inventory.add(item);
                 if(item instanceof UseableItem){
-                    ((UseableItem)item).addListener((UseableItemListener) owner);
+                    ((UseableItem)item).addListener(owner);
                 }
                 else if( item instanceof EquipableItem){
-                    ((EquipableItem)item).addListener((EquipableItemListener) owner);
+                    ((EquipableItem)item).addListener(owner);
                 }
             }
         }
         else{
             inventory.add(item);
             if(item instanceof UseableItem){
-                ((UseableItem)item).addListener((UseableItemListener) owner);
+                ((UseableItem)item).addListener(owner);
             }
             else if( item instanceof EquipableItem){
-                ((EquipableItem)item).addListener((EquipableItemListener) owner);
+                ((EquipableItem)item).addListener(owner);
             }
         }
 
@@ -72,10 +70,10 @@ public class Inventory{
             int Index = inventory.indexOf(item);
 
             if(item instanceof Stackable){
-                ((UseableItem)item).removeListener((UseableItemListener) owner);
+                ((UseableItem)item).removeListener(owner);
             }
             else if(item instanceof EquipableItem){
-                ((EquipableItem)item).removeListener((EquipableItemListener) owner);
+                ((EquipableItem)item).removeListener(owner);
             }
 
             inventory.remove(item);
@@ -168,7 +166,7 @@ public class Inventory{
 
         boolean close = false;
 
-        Item SelectedItem = null;
+        Item SelectedItem;
 
         while(!close){
             Display.clear();

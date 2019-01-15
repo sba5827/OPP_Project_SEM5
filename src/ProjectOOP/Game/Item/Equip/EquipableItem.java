@@ -1,7 +1,6 @@
 package ProjectOOP.Game.Item.Equip;
 
 import ProjectOOP.Game.Item.Item;
-import ProjectOOP.Input.Input;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,7 +11,7 @@ public abstract class EquipableItem extends Item {
 
     public EquipableItem(String Name){
         super(Name);
-        Listeners =new LinkedList<EquipableItemListener>();
+        Listeners =new LinkedList<>();
     }
 
     public void equip() {
