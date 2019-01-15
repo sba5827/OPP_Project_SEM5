@@ -1,7 +1,8 @@
-package ProjectOOP.Game;
+package ProjectOOP.Game.NPC;
 
 import ProjectOOP.DisplayControl.Display;
 import ProjectOOP.DisplayControl.DisplayStyle;
+import ProjectOOP.Game.Player;
 import ProjectOOP.Input.Input;
 
 import java.util.LinkedList;
@@ -10,8 +11,8 @@ import java.util.List;
 public class NPC {
 
     private String Name;
-    private List<String> Sentences = new LinkedList<>();
-    private int talkCounter = 0;
+    protected List<String> Sentences = new LinkedList<>();
+    protected int talkCounter = 0;
 
     public NPC(String name, String sentence){
 
@@ -43,13 +44,16 @@ public class NPC {
 
     }
 
-    private void talk(){
+    protected void talk(Player player){
 
         Display.clear();
 
         System.out.println(getName() + ": ");
+
+        DisplayStyle.FontColor.Red();
         System.out.print("\t");
         System.out.println(Sentences.get(talkCounter));
+        DisplayStyle.resetAttributes();
 
         if(talkCounter < Sentences.size()-1) {
             talkCounter++;
@@ -60,11 +64,11 @@ public class NPC {
 
     }
 
-    public void onEncounter(){
-        dialog();
+    public void onEncounter(Player player){
+        dialog(player);
     }
 
-    private void dialog(){
+    private void dialog(Player player){
 
         boolean close = false;
 
@@ -88,7 +92,7 @@ public class NPC {
 
                         case 1:
 
-                            talk();
+                            talk(player);
                             validInput = true;
                             break;
 

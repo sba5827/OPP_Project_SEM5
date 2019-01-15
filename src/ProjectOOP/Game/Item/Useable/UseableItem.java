@@ -12,7 +12,7 @@ public abstract class UseableItem extends Item {
     public UseableItem(String Name){
 
         super(Name);
-        Listeners = new LinkedList<UseableItemListener>();
+        Listeners = new LinkedList<>();
 
     }
 

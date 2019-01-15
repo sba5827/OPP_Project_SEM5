@@ -1,7 +1,7 @@
 package ProjectOOP.Game.Item;
 
 public abstract class Item  {
-    private String ItemName;
+    private final String ItemName;
 
     public Item(String Name){
         ItemName = Name;

@@ -4,9 +4,11 @@ import ProjectOOP.Game.Field.DoorField;
 import ProjectOOP.Game.Field.Field;
 import ProjectOOP.Game.Field.ImpassableField;
 import ProjectOOP.Game.Field.NormalField;
+import ProjectOOP.Game.Item.Equip.Weapon;
 import ProjectOOP.Game.Item.Useable.HealthPotion;
 import ProjectOOP.Game.Item.Useable.Key;
-import ProjectOOP.Game.NPC;
+import ProjectOOP.Game.NPC.NPC;
+import ProjectOOP.Game.NPC.NPC_Gift;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -36,8 +38,12 @@ public class FirstTestMap3x3 extends Map {
         map.add(Line3);
 
         setStartPosition(map.get(0).get(0).getID());
+
+        NPC Bob = new NPC_Gift("Bob", "Hello stranger.",new Weapon());
+        Bob.addSentence("Take this, you'll need it");
+
         try{
-            setNPC(2,2, new NPC("Bob", "Hello stranger."));
+            setNPC(2,2, Bob);
             setItem(2,1,new HealthPotion());
             setItem(0,2,new Key());
         }

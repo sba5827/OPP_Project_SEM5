@@ -1,11 +1,5 @@
 package ProjectOOP.DisplayControl;
 
-import ProjectOOP.Game.*;
-import ProjectOOP.Game.Map.Map;
-import ProjectOOP.Input.Input;
-
-import java.util.List;
-
 public class Display {
 
     static public void printBlackBox(){

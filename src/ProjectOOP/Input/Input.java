@@ -1,17 +1,15 @@
 package ProjectOOP.Input;
 
-import javax.print.DocFlavor;
 import java.io.IOException;
 
 public class Input {
     static public String getNextSingleInput(){
         char Input = 0;
-        char Dump;
 
         try {
             Input = (char)System.in.read();
             while(0 != System.in.available()){
-                Dump = (char)System.in.read();
+            System.in.read();
             }
         }
         catch (IOException e) {
@@ -22,13 +20,13 @@ public class Input {
     }
 
     static public String getNextInput(){
-        char nextChar = 0;
+        char nextChar;
         StringBuilder Input = new StringBuilder();
 
         try {
             nextChar = (char)System.in.read();
             while(0 != System.in.available()){
-                Input.append(String.valueOf(nextChar));
+                Input.append(nextChar);
                 nextChar = (char)System.in.read();
             }
         }
@@ -42,7 +40,7 @@ public class Input {
     static public int toPositiveNumber(String input) throws Exception {
 
         int limit = input.length();
-        int value = 0;
+        int value;
         int returnValue = 0;
 
         for (int i = 0; i < limit;++i){

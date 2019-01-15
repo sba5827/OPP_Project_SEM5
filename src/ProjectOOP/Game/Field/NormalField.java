@@ -2,7 +2,7 @@ package ProjectOOP.Game.Field;
 
 import ProjectOOP.Game.Item.Item;
 import ProjectOOP.Game.Item.Stackable;
-import ProjectOOP.Game.NPC;
+import ProjectOOP.Game.NPC.NPC;
 import ProjectOOP.Game.Player;
 import ProjectOOP.Input.Input;
 
@@ -71,13 +71,11 @@ public class NormalField extends Field {
         }
 
         if (this.hasNPC()) {
-            this.getNpc().onEncounter();
+            this.getNpc().onEncounter(player);
         }
     }
 
-    private Item removeItem() {
-        Item buffer = getItem();
+    private void removeItem() {
         setItem(null);
-        return buffer;
     }
 }
