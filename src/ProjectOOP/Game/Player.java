@@ -6,21 +6,26 @@ import ProjectOOP.Game.Item.Item;
 import ProjectOOP.Game.Item.Useable.HealthPotion;
 import ProjectOOP.Game.Item.Useable.Key;
 import ProjectOOP.Game.Item.Useable.UseableItem;
-import ProjectOOP.Game.Map.Map;
 import ProjectOOP.Input.Input;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class Player extends InventoryOwner{
 
     private static final int MaxHP = 100;
 
     //Intern Variables
+    List<PositionListener> listeners = new LinkedList<>();
+
     private int HP;
     private Armor armor;
     private Weapon weapon;
 
-    private int PlayerPosition_byFieldId;
+    private XY_Position position;
+    private XY_Position positionOld;
 
-    public Player(int startPosition){
+    public Player(int startPositionX, int startPositionY){
 
         super();
 
@@ -28,42 +33,33 @@ public class Player extends InventoryOwner{
         setArmor(null);
         setWeapon(null);
 
-        setPlayerPosition(startPosition);
+        position = new XY_Position(startPositionX,startPositionY);
+        positionOld = new XY_Position(startPositionX,startPositionY);
 
     }
 
     private void setHP(int HP){
         this.HP = HP;
     }
-
-
-
-    public void setArmor(Armor armor){
+    private void setArmor(Armor armor){
         this.armor = armor;
     }
-
-    public void setWeapon(Weapon weapon) {
+    private void setWeapon(Weapon weapon) {
         this.weapon = weapon;
     }
 
     public int getHP() {
         return HP;
     }
-
     public int getMaxHP() {
         return MaxHP;
     }
-
     public Armor getArmor() {
         return armor;
     }
-
     public Weapon getWeapon() {
         return weapon;
     }
-
-
-
     public void increaseHP(int hp){
         if(getHP()+ hp < MaxHP) {
 
@@ -80,7 +76,6 @@ public class Player extends InventoryOwner{
 
         }
     }
-
     public void decreaseHP(int hp){
         if(getHP()- hp > 0) {
             setHP(getHP() - hp);
@@ -90,32 +85,65 @@ public class Player extends InventoryOwner{
         }
     }
 
-    public int getPlayerPosition(){
-        return PlayerPosition_byFieldId;
+    public final XY_Position getPlayerPosition(){
+        return position;
     }
 
-    private void setPlayerPosition(int position){
-        PlayerPosition_byFieldId = position;
-    }
+    public void MoveUp(){
 
-    public void MoveUp(Map map){
-
-        setPlayerPosition(map.getNewPosition(this,"up"));
+        backupPosition();
+        position.setY(position.getY()-1);
+        notifyListeners();
 
     }
-    public void MoveDown(Map map){
+    public void MoveDown(){
 
-        setPlayerPosition(map.getNewPosition(this,"down"));
-
-    }
-    public void MoveRight(Map map){
-
-        setPlayerPosition(map.getNewPosition(this,"right"));
+        backupPosition();
+        position.setY(position.getY()+1);
+        notifyListeners();
 
     }
-    public void MoveLeft(Map map){
+    public void MoveRight(){
 
-        setPlayerPosition(map.getNewPosition(this,"left"));
+        backupPosition();
+        position.setX(position.getX()+1);
+        notifyListeners();
+
+    }
+    public void MoveLeft(){
+
+        backupPosition();
+        position.setX(position.getX()-1);
+        notifyListeners();
+
+    }
+
+    public void addListener(PositionListener listener){
+        listeners.add(listener);
+    }
+    public void removeListener(PositionListener listener){
+        listeners.remove(listener);
+    }
+
+    private void notifyListeners(){
+
+        for (PositionListener listener:listeners) {
+            listener.onPositionChanged(this);
+        }
+
+    }
+
+    private void backupPosition(){
+
+        positionOld.setX(position.getX());
+        positionOld.setY(position.getY());
+
+    }
+
+    public void restorePosition(){
+
+        position.setX(positionOld.getX());
+        position.setY(positionOld.getY());
 
     }
 

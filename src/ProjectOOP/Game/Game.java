@@ -7,6 +7,7 @@ import ProjectOOP.Game.Map.Map;
 import ProjectOOP.Input.Input;
 
 public class Game implements WinningConditionListener{
+
     private Map itsMap;
     private Player itsPlayer;
     private boolean isRunning;
@@ -14,8 +15,10 @@ public class Game implements WinningConditionListener{
     public Game(){
 
         itsMap = new FirstTestMap3x3(this);
-        itsPlayer = new Player(itsMap.getStartPosition());
+        itsPlayer = new Player(itsMap.getStartPosition().getX(),itsMap.getStartPosition().getY());
         isRunning = false;
+
+        itsPlayer.addListener(itsMap);
 
     }
 
@@ -23,7 +26,6 @@ public class Game implements WinningConditionListener{
 
         isRunning = true;
         String input;
-        int playerPositionOld = itsPlayer.getPlayerPosition();
 
         itsPlayer.decreaseHP(50);
 
@@ -35,23 +37,7 @@ public class Game implements WinningConditionListener{
 
             ValidateInput(input);
 
-            if(playerPositionOld != itsPlayer.getPlayerPosition()){
-
-                ShowMainView();
-
-                try {
-                    itsMap.enterField(itsPlayer);
-                }
-                catch (Exception e){
-                    throw new Error(e.getCause());
-                }
-                if(isRunning) {
-                    ShowMainView();
-                }
-
-            }
-
-            playerPositionOld = itsPlayer.getPlayerPosition();
+            ShowMainView();
 
         }
     }
@@ -59,16 +45,16 @@ public class Game implements WinningConditionListener{
     private void ValidateInput(String input) {
 
         if(Input.inputIsMoveUp(input)){
-            itsPlayer.MoveUp(itsMap);
+            itsPlayer.MoveUp();
         }
         else if(Input.inputIsMoveDown(input)){
-            itsPlayer.MoveDown(itsMap);
+            itsPlayer.MoveDown();
         }
         else if(Input.inputIsMoveRight(input)){
-            itsPlayer.MoveRight(itsMap);
+            itsPlayer.MoveRight();
         }
         else if(Input.inputIsMoveLeft(input)){
-            itsPlayer.MoveLeft(itsMap);
+            itsPlayer.MoveLeft();
         }
         else if(Input.inputIsShowHelp(input)){
             ShowHelp();
@@ -107,6 +93,5 @@ public class Game implements WinningConditionListener{
         System.out.println("You won the game!");
 
         isRunning = false;
-
     }
 }

@@ -9,99 +9,55 @@ import ProjectOOP.Game.Item.Item;
 import ProjectOOP.Game.Item.Useable.Key;
 import ProjectOOP.Game.NPC.NPC;
 import ProjectOOP.Game.Player;
-import ProjectOOP.Game.WinningConditionListener;
+import ProjectOOP.Game.PositionListener;
+import ProjectOOP.Game.XY_Position;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class Map {
+public abstract class Map implements PositionListener {
 
     protected List<List<Field>> map;
-    private int startPosition;
-    private final WinningConditionListener itsWCListener;
+    private XY_Position startingPosition;
 
-    public Map(WinningConditionListener wcListener){
+    public Map(){
 
         map = new LinkedList<>();
-        itsWCListener = wcListener;
+        startingPosition = new XY_Position(0,0);
 
     }
 
-    public void draw(int FieldID_PlayerLocation){
+    public void draw(XY_Position playerPosition){
+
+
+        int y = 0;
 
         for (List<Field> Line: map){
 
+            int x = 0;
+
             for (Field field: Line) {
-                field.draw(FieldID_PlayerLocation);
-            }
-            System.out.println();
-        }
 
-    }
-    public int getStartPosition() {
-        return startPosition;
-    }
-    public int getNewPosition(Player player, String direction) {
-
-        Field requestedField;
-
-        direction = direction.toLowerCase();
-
-        try {
-            switch (direction) {
-                case "left":
-                    requestedField = getFieldLeft(player.getPlayerPosition());
-                    break;
-                case "right":
-                    requestedField = getFieldRight(player.getPlayerPosition());
-                    break;
-                case "up":
-                    requestedField = getFieldUp(player.getPlayerPosition());
-                    break;
-                case "down":
-                    requestedField = getFieldDown(player.getPlayerPosition());
-                    break;
-                default:
-                    throw new Exception("No such direction");
-            }
-        }
-        catch (Exception e){
-            return player.getPlayerPosition();
-        }
-        if(requestedField == null){
-            return player.getPlayerPosition();
-        }
-        if(requestedField.isPassable()){
-            return requestedField.getID();
-        }
-        else{
-            if(requestedField instanceof DoorField){
-
-                int ItemIndex = player.getInventory().InventoryHasInstanceOf(new Key());
-
-                if(ItemIndex != -1){
-
-                    Key key = (Key)player.getInventory().getItem(ItemIndex);
-                    ((DoorField) requestedField).unlock(key);
-
-                    return requestedField.getID();
-
+                if(playerPosition.equals(x,y)){
+                    field.draw(true);
                 }
                 else{
-                    System.out.println("You got no key to open the door.");
+                    field.draw(false);
                 }
 
+                x++;
+
             }
-            return player.getPlayerPosition();
+
+            y++;
+
+            System.out.println();
+
         }
+
     }
-    public void enterField(Player player) throws Exception {
-
-        Field field = getField(player.getPlayerPosition());
-
-        if(field instanceof PassableField){
-            ((PassableField) field).OnEnter(player);
-        }
+    public XY_Position getStartPosition() {
+        return startingPosition;
     }
 
     protected void setNPC(int x, int y, NPC npc) throws Exception {
@@ -124,140 +80,46 @@ public abstract class Map {
         }
 
     }
-    protected WinningConditionListener getWinningConditionListener() {
-        return itsWCListener;
+
+    protected void setStartPosition(int x, int y){
+
+        startingPosition.setX(x);
+        startingPosition.setY(y);
+
     }
-    protected void setStartPosition(int FieldID_StartPosition){
-        startPosition = FieldID_StartPosition;
-    }
 
-    private Field getFieldUp(int referenceFieldID) throws Exception {
+    @Override
+    public void onPositionChanged(Player player) {
 
-        List<Field> prevLine = null;
-        Field requestedField;
+        Field newField;
 
-        for (List<Field>Line:map
-        ) {
-            for (Field field:Line
-            ) {
-                if(field.getID() == referenceFieldID){
-                    if(prevLine == null){
-                        System.out.println("Requested field out of bound");
-                        return null;
-                    }
+        try{
+            newField = map.get(player.getPlayerPosition().getY()).get(player.getPlayerPosition().getX());
 
-                    requestedField = prevLine.get(Line.indexOf(field));
+            if(newField.isPassable()){
+                ((PassableField)newField).OnEnter(player);
+            }
+            else if(newField instanceof DoorField){
 
-                    return requestedField;
+                int index = player.getInventory().getIndexOfInstanceOf(new Key());
+
+                if(index  != -1){
+
+                    ((DoorField) newField).unlock((Key)player.getInventory().getItem(index));
+                    ((DoorField) newField).OnEnter(player);
+
+                }
+                else {
+                    player.restorePosition();
                 }
             }
-            prevLine = Line;
-        }
-
-        throw new Exception();
-    }
-    private Field getFieldDown(int referenceFieldID) throws Exception {
-
-        List<Field> nextLine;
-        Field requestedField;
-
-        for (List<Field>Line:map
-        ) {
-            try {
-                nextLine = map.get(map.indexOf(Line) + 1);
-            }
-            catch (Exception e){
-                System.out.println("Requested field out of bound");
-                return null;
-            }
-
-
-            for (Field field:Line
-            ) {
-                if(field.getID() == referenceFieldID){
-                    if(nextLine == null){
-                        return null;
-                    }
-
-                    requestedField = nextLine.get(Line.indexOf(field));
-
-                    return requestedField;
-                }
+            else{
+                player.restorePosition();
             }
         }
-
-        throw new Exception();
-    }
-    private Field getFieldRight(int referenceFieldID) throws Exception {
-
-        Field requestedField;
-
-        for (List<Field>Line:map
-        ) {
-            for (Field field:Line
-            ) {
-                if(field.getID() == referenceFieldID){
-
-                    try {
-                        requestedField = Line.get(Line.indexOf(field) + 1);
-                        return requestedField;
-                    }
-                    catch (Exception e){
-                        System.out.println("Requested field out of bound");
-                        return null;
-                    }
-                }
-            }
+        catch (Exception e){
+            player.restorePosition();
         }
 
-        throw new Exception();
     }
-    private Field getFieldLeft(int referenceFieldID) throws Exception {
-
-        Field requestedField;
-
-        for (List<Field>Line:map
-        ) {
-            for (Field field:Line
-            ) {
-                if(field.getID() == referenceFieldID){
-
-                    try {
-                        requestedField = Line.get(Line.indexOf(field) - 1);
-                        return requestedField;
-                    }
-                    catch (Exception e){
-                        System.out.println("Requested field out of bound");
-                        return null;
-                    }
-                }
-            }
-        }
-
-        throw new Exception();
-    }
-    private Field getField(int fieldID) throws Exception {
-        Field requestedField;
-
-        for (List<Field>Line:map
-        ) {
-            for (Field field:Line
-            ) {
-                if(field.getID() == fieldID){
-
-                    try {
-                        requestedField = Line.get(Line.indexOf(field));
-                        return requestedField;
-                    }
-                    catch (Exception e){
-                        System.out.println("Requested field out of bound");
-                        return null;
-                    }
-                }
-            }
-        }
-
-        throw new Exception();
-    }
-
 }

@@ -21,8 +21,8 @@ public class WinningField extends PassableField {
     }
 
     @Override
-    public void draw(int PlayerLocation) {
-        Display.printGreenBox(getID() == PlayerLocation);
+    public void draw(boolean isPlayerPosition) {
+        Display.printGreenBox(isPlayerPosition);
     }
 
 }

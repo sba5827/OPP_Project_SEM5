@@ -13,7 +13,7 @@ public class ImpassableField extends Field {
     }
 
     @Override
-    public void draw(int PlayerLocation) {
+    public void draw(boolean isPlayerPosition) {
         Display.printBlackBox();
     }
 }

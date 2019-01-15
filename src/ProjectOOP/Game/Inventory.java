@@ -26,7 +26,7 @@ public class Inventory{
         }
     }
 
-    public int InventoryHasInstanceOf(Item obj) {
+    public int getIndexOfInstanceOf(Item obj) {
         for (Item item:inventory) {
             if(item.getClass().getName().contentEquals(obj.getClass().getName())){
                 return inventory.indexOf(item);
@@ -36,7 +36,7 @@ public class Inventory{
     }
 
     public void addItem(Item item){
-        int Index = InventoryHasInstanceOf(item);
+        int Index = getIndexOfInstanceOf(item);
 
         if(Index != -1){
             if(item instanceof StackableItem){

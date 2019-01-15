@@ -14,7 +14,6 @@ import java.util.List;
 public class FirstTestMap3x3 extends Map {
 
     public FirstTestMap3x3(WinningConditionListener wcListener){
-        super(wcListener);
 
         List<Field> Line1 = new LinkedList<>();
         List<Field> Line2 = new LinkedList<>();
@@ -36,7 +35,7 @@ public class FirstTestMap3x3 extends Map {
         map.add(Line2);
         map.add(Line3);
 
-        setStartPosition(map.get(0).get(0).getID());
+        setStartPosition(0,0);
 
         NPC Bob = new NPC_Gift("Bob", "Hello stranger.",new Weapon());
         Bob.addSentence("Take this, you'll need it");

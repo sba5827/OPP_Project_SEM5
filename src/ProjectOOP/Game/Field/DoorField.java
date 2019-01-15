@@ -20,8 +20,8 @@ public class DoorField extends PassableField {
     }
 
     @Override
-    public void draw(int PlayerLocation) {
-        Display.printGreyBox(getID() == PlayerLocation);
+    public void draw(boolean isPlayerPosition) {
+        Display.printGreyBox(isPlayerPosition);
     }
 
     @Override
