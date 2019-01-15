@@ -1,5 +1,7 @@
 package ProjectOOP.Game.Field;
 
+import ProjectOOP.DisplayControl.Display;
+
 public class ImpassableField extends Field {
     public ImpassableField(){
         super();
@@ -8,5 +10,10 @@ public class ImpassableField extends Field {
     @Override
     public boolean isPassable() {
         return false;
+    }
+
+    @Override
+    public void draw(int PlayerLocation) {
+        Display.printBlackBox();
     }
 }

@@ -16,4 +16,6 @@ public abstract class Field {
         return ID;
     }
 
+    public abstract void draw(int PlayerLocation);
+
 }

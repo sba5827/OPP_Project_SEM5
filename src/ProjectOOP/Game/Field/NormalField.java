@@ -1,5 +1,6 @@
 package ProjectOOP.Game.Field;
 
+import ProjectOOP.DisplayControl.Display;
 import ProjectOOP.Game.Item.Item;
 import ProjectOOP.Game.Item.StackableItem;
 import ProjectOOP.Game.NPC.NPC;
@@ -26,27 +27,13 @@ public class NormalField extends PassableField {
     public NPC getNpc() {
         return itsNpc;
     }
-
     public void setNpc(NPC npc) {
         this.itsNpc = npc;
-    }
-
-    public NPC removeNPC() {
-
-        NPC buffer = getNpc();
-        setNpc(null);
-        return buffer;
-
-    }
-
-    public boolean hasNPC() {
-        return getNpc() != null;
     }
 
     public Item getItem() {
         return itsItem;
     }
-
     public void setItem(Item itsItem) {
         this.itsItem = itsItem;
     }
@@ -54,7 +41,18 @@ public class NormalField extends PassableField {
     public boolean hasItem(){
         return getItem() != null;
     }
+    public boolean hasNPC() {
+        return getNpc() != null;
+    }
 
+    public void removeItem() {
+        setItem(null);
+    }
+    public void removeNPC() {
+        setNpc(null);
+    }
+
+    @Override
     public void OnEnter(Player player) {
 
         if(this.hasItem()){
@@ -80,7 +78,8 @@ public class NormalField extends PassableField {
 
     }
 
-    private void removeItem() {
-        setItem(null);
+    @Override
+    public void draw(int PlayerLocation) {
+        Display.printGreenBox(getID() == PlayerLocation);
     }
 }

@@ -97,7 +97,7 @@ public class Inventory{
             if(item instanceof StackableItem){
                 System.out.print("x" + ((StackableItem)item).getStackSize());
             }
-            Display.newLine();
+            System.out.println();
         }
     }
 

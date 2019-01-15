@@ -15,24 +15,35 @@ public class Display {
 
         System.out.print(" ");
         DisplayStyle.BackgroundColor.Green();
-        if(hasPlayer) System.out.print(" P ");
-        else System.out.print("   ");
+
+        if(hasPlayer){
+            DisplayStyle.FontStyle.Bold();
+            System.out.print(" P ");
+        }
+        else{
+            System.out.print("   ");
+        }
+
         DisplayStyle.resetAttributes();
         System.out.print(" ");
 
-    }
-    static public void newLine(){
-        System.out.println();
     }
 
     static public void printGreyBox(boolean hasPlayer){
 
         System.out.print(" ");
         DisplayStyle.BackgroundColor.Grey();
-        if(hasPlayer) System.out.print(" P ");
-        else System.out.print("   ");
+
+        if(hasPlayer){
+            DisplayStyle.FontStyle.Bold();
+            System.out.print(" P ");
+        }
+        else{
+            System.out.print("   ");
+        }
+
         DisplayStyle.resetAttributes();
-        System.out.print(" ");
+        System.out.print(" ");;
 
     }
 
@@ -40,8 +51,15 @@ public class Display {
 
         System.out.print(" ");
         DisplayStyle.resetAttributes();
-        if(hasPlayer) System.out.print(" P ");
-        else System.out.print("   ");
+
+        if(hasPlayer){
+            DisplayStyle.FontStyle.Bold();
+            System.out.print(" P ");
+        }
+        else{
+            System.out.print("   ");
+        }
+
         DisplayStyle.resetAttributes();
         System.out.print(" ");
 
@@ -50,24 +68,32 @@ public class Display {
     static public void printLegend(){
 
         System.out.println("Legend:");
+
         printWhiteBox(true);
         System.out.print("= Player Location ");
+
         printGreyBox(false);
         System.out.print("= Door  ");
+
         printBlackBox();
         System.out.print("= Impassable  ");
+
         printGreenBox(false);
         System.out.print("= Passable    ");
-        newLine();
+
+        System.out.println();
 
     }
 
     static public void printPlayerStatus(int Health, int MaxHealth){
 
         System.out.print("Player Status: |Health: ");
+
         DisplayStyle.FontColor.Red();
         DisplayStyle.FontStyle.Bold();
+
         System.out.println(Health + "/" + MaxHealth);
+
         DisplayStyle.resetAttributes();
 
     }
@@ -79,6 +105,7 @@ public class Display {
         System.out.println("Enter \"i\" to open Inventory.");
         System.out.println("Use the buttons described above, then press return.");
         System.out.println("On entering multiple buttons the first input will be chosen.");
+
         Display.printLegend();
 
     }
@@ -89,7 +116,7 @@ public class Display {
 
     static public void clear(){
         for (int i = 0;i<50;++i){
-            Display.newLine();
+            System.out.println();
         }
     }
 }

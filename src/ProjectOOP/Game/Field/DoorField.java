@@ -1,5 +1,6 @@
 package ProjectOOP.Game.Field;
 
+import ProjectOOP.DisplayControl.Display;
 import ProjectOOP.Game.Item.Useable.Key;
 import ProjectOOP.Game.Player;
 
@@ -16,6 +17,11 @@ public class DoorField extends PassableField {
 
     public boolean isLocked(){
         return locked;
+    }
+
+    @Override
+    public void draw(int PlayerLocation) {
+        Display.printGreyBox(getID() == PlayerLocation);
     }
 
     @Override
