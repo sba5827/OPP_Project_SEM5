@@ -57,7 +57,12 @@ public class Game implements WinningConditionListener{
             itsPlayer.MoveLeft();
         }
         else if(Input.inputIsShowHelp(input)){
+
             ShowHelp();
+
+            System.out.println("Press enter to continue...");
+            Input.getNextInput();
+
         }
         else if(Input.inputIsQuit(input)){
             isRunning = false;
@@ -91,6 +96,9 @@ public class Game implements WinningConditionListener{
     public void onWin() {
 
         System.out.println("You won the game!");
+
+        System.out.println("Press enter to continue...");
+        Input.getNextInput();
 
         isRunning = false;
     }

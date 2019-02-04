@@ -169,7 +169,7 @@ public class Inventory{
             Display.clear();
             show();
             System.out.println("Select Item by entering its number. Enter \"I\" to close Inventory");
-            String input = Input.getNextInput();
+            String input = Input.getNextSingleInput();
 
             try {
                 if (input.charAt(0) == 'i' || input.charAt(0) == 'I') {

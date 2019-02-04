@@ -84,7 +84,7 @@ public class NPC {
 
             while (!validInput) {
 
-                String input = Input.getNextInput();
+                String input = Input.getNextSingleInput();
 
                 if (Input.inputIsSingleDigitNumber(input)) {
 

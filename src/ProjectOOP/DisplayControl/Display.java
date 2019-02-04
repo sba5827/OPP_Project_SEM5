@@ -2,6 +2,8 @@ package ProjectOOP.DisplayControl;
 
 public class Display {
 
+    static ProcessBuilder pb = new ProcessBuilder().inheritIO();
+
     static public void printBlackBox(){
 
         System.out.print(" ");
@@ -115,8 +117,14 @@ public class Display {
     }
 
     static public void clear(){
-        for (int i = 0;i<50;++i){
-            System.out.println();
+        //for (int i = 0;i<50;++i){
+        //    System.out.println();
+        //}
+        try {
+            pb.command("cmd", "/c", "cls").start().waitFor();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
         }
     }
 }
